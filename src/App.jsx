@@ -7,6 +7,7 @@ import About from './pages/About';
 import LandingPage from './pages/LandingPage';
 import Resume from './pages/Resume';
 import Experience from './pages/Experience';
+import Contact from './pages/Contact';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,6 +23,7 @@ function App() {
           <Route path="/Mywebself/about" element={<About />} />
           <Route path="/Mywebself/resume" element={<Resume />} />
           <Route path="/Mywebself/xp" element={<Experience />} />
+          <Route path="/Mywebself/contact" element={<Contact />} />
           {/* <Route path="pokedex" element={<Pokedex />} /> */}
         </Route>
       </Routes>
