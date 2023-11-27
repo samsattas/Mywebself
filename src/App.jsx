@@ -6,6 +6,7 @@ import './App.css'
 import Layout from './components/utils/Layout';
 import LandingPage from './pages/LandingPage';
 import Navbar from './components/Navbar';
+import About from './pages/About';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -18,6 +19,7 @@ function App() {
           <Layout />
         </>}>
           <Route path="" element={<LandingPage />} />
+          <Route path="about" element={<About />} />
           {/* <Route path="pokedex" element={<Pokedex />} /> */}
         </Route>
       </Routes>

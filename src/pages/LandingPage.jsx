@@ -1,7 +1,6 @@
 const LandingPage = () => {
   return(
     <div>
-      <nav></nav>
       <main>
         <article>
           <h2>Mywebself</h2>
