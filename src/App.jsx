@@ -12,12 +12,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<>
+        <Route path="/Mywebself/" element={<>
           <Navbar />
           <Layout />
         </>}>
           <Route path="" element={<LandingPage />} />
-          <Route path="about" element={<About />} />
+          <Route path="/about" element={<About />} />
           {/* <Route path="pokedex" element={<Pokedex />} /> */}
         </Route>
       </Routes>
