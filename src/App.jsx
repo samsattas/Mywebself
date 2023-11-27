@@ -15,16 +15,17 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/Mywebself/" element={<>
-          <Navbar />
-          <Layout />
-        </>}>
+        <Route path="/Mywebself/" element={
+          <>
+            <Navbar />
+            <Layout />
+          </>
+        }>
           <Route path="" element={<LandingPage />} />
           <Route path="/Mywebself/about" element={<About />} />
           <Route path="/Mywebself/resume" element={<Resume />} />
           <Route path="/Mywebself/xp" element={<Experience />} />
           <Route path="/Mywebself/contact" element={<Contact />} />
-          {/* <Route path="pokedex" element={<Pokedex />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>
