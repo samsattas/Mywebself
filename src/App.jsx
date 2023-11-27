@@ -5,6 +5,8 @@ import Navbar from './components/Navbar';
 import Layout from './components/utils/Layout';
 import About from './pages/About';
 import LandingPage from './pages/LandingPage';
+import Resume from './pages/Resume';
+import Experience from './pages/Experience';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -17,7 +19,9 @@ function App() {
           <Layout />
         </>}>
           <Route path="" element={<LandingPage />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/Mywebself/about" element={<About />} />
+          <Route path="/Mywebself/resume" element={<Resume />} />
+          <Route path="/Mywebself/xp" element={<Experience />} />
           {/* <Route path="pokedex" element={<Pokedex />} /> */}
         </Route>
       </Routes>

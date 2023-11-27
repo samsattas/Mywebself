@@ -8,10 +8,10 @@ const Navbar = () => {
       <nav className="flex">
         <NavLink className="hover:bg-[#373F51] p-4 transition duration-100 after:scale-0 after:w-full after:h-[2px] after:bg-red-600 after:absolute after:bottom-0 after:left-0 hover:after:scale-100
         " to={''}>Home</NavLink>
-        <NavLink className="hover:bg-[#373F51] p-4 transition duration-100" to={'/about'}>About</NavLink>
-        <NavLink className="hover:bg-[#373F51] p-4 transition duration-100" to={'/resume'}>Resume</NavLink>       
-        <NavLink className="hover:bg-[#373F51] p-4 transition duration-100" to={'/xp'}>Experience</NavLink>  
-        <NavLink className="hover:bg-[#373F51] p-4 transition duration-100" to={'/contact'}>Contact</NavLink>
+        <NavLink className="hover:bg-[#373F51] p-4 transition duration-100" to={'/Mywebself/about'}>About</NavLink>
+        <NavLink className="hover:bg-[#373F51] p-4 transition duration-100" to={'/Mywebself/resume'}>Resume</NavLink>       
+        <NavLink className="hover:bg-[#373F51] p-4 transition duration-100" to={'/Mywebself/xp'}>Experience</NavLink>  
+        <NavLink className="hover:bg-[#373F51] p-4 transition duration-100" to={'/Mywebself/contact'}>Contact</NavLink>
       </nav>
     </header>
   )
