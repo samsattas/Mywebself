@@ -1,19 +1,18 @@
 import { useState } from 'react';
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
 import Navbar from './components/Navbar';
 import Layout from './components/utils/Layout';
 import About from './pages/About';
-import Contact from './pages/Contact';
-import Experience from './pages/Experience';
 import LandingPage from './pages/LandingPage';
 import Resume from './pages/Resume';
+import Experience from './pages/Experience';
+import Contact from './pages/Contact';
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <HashRouter>
       <Routes>
         <Route path="/Mywebself/" element={
           <>
@@ -28,7 +27,6 @@ function App() {
           <Route path="/Mywebself/contact" element={<Contact />} />
         </Route>
       </Routes>
-    </HashRouter>
   )
 }
 
