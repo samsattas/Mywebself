@@ -21,6 +21,7 @@ const LandingPage = () => {
         <p className='md:text-2xl text-xl text-white py-4 w-3/4 md:w-1/3 border-b-2 border-white text-center'>
           Start exploring my webpage 💻
         </p>
+        {/* TODO: fix this footer */}
         <NavLink to="/about" className="text-xl overflow-hidden rounded relative inline-flex group items-center justify-center px-14 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-[#58A4B0] active:shadow-none shadow-lg bg-gradient-to-tr from-[#58A4B0] to-[#58A4B0] border-[#3B747D] text-white">
           <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
           <span className="relative">Go to About </span>
