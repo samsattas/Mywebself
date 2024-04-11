@@ -4,7 +4,7 @@ import Skill from "../components/Skill";
 const About = () => {
   return (
     <div className="h-full bg-[#1B1B1E] pt-14 flex flex-col">
-      <main className="sm:px-20 sm:pb-10 p-6 h-full flex flex-col gap-8">
+      <main className="sm:px-20 lg:px-36 xl:px-80 sm:pb-10 p-6 h-full flex flex-col gap-8">
         <article className="flex flex-col h-fit md:flex-row items-center gap-6 md:gap-16 bg-white rounded-xl p-5 md:p-10 pb-16">
           <h2 className="text-[4vh] text-center md:text-start font-bold w-full border-b-[#1B1B1E] border-b-2 block md:hidden">
             About me
@@ -62,8 +62,8 @@ const About = () => {
                 <Skill name="Spring" value={50} />
                 <Skill name="SQL" value={70} />
                 <Skill name="Node" value={30} />
-                <Skill name="AWS S3" value={60} />
-                <Skill name="AWS codecommit" value={60} />
+                <Skill name="S3" value={60} />
+                <Skill name="Codecommit" value={60} />
                 <Skill name="Git" value={85} />
                 <Skill name="JUnit" value={50} />
               </ul>
@@ -95,7 +95,7 @@ const About = () => {
           <h2 className="text-[4vh] text-center md:text-start font-bold w-full border-b-[#1B1B1E] border-b-2 block ">
             Education
           </h2>
-          <p className="w-full flex flex-col gap-4">
+          <p className="w-full flex flex-col gap-4 text-[2.3vh]">
             <span>
               <b>Systems Engineer degree</b>
               <br /> - Universidad ICESI, Colombia (2018-2023)
