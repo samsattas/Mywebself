@@ -19,6 +19,23 @@ const Experience = () => {
       description:
         "I was in charge to develop components and pages based on figma mockups usin React.js and SASS, connect with the back-end consuming APIs and test the components using Vitest and Jest. The main task was to make a bank app where regular users and stores can log in and make transactions. This app was made responsive, so any user can access from any device. Also was made maintaining the accessibility so anybody can use all functionalities. I collaborated with a team made by back-end, a front-end, a DevOps and a QA using Scrum to be agile and organized.",
     },
+    {
+      company: "Remote",
+      position: "Private teacher",
+      date: "November 2021 - Today",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8so3S0pGKm0S25g2v2sHtYQgCoTShJQrcxkvDx7da1g&s",
+      description:
+        "During this time I gave private lessons to Interactive media design students where I taught them the Object Oriented Programming basics using JavaScript. The classes were given based on projects the students had in different academic subjects, for which later I taught them TypeScript to develop a software even more consistent, robust and scalable.",
+    },
+    {
+      company: "Universidad ICESI",
+      position: "Course assistant",
+      date: "August 2021- December 2021",
+      image: "https://media.tutellus.com/libraries/45/01/lib/1360445882784.jpg",
+      description:
+        "Give feedback to multiple homework and tests from students who were taking the subject Introduction to engineering and systems, and collaborate with the professor in the formulation of laboratories, tests and homework.",
+    },
   ];
 
   return (
