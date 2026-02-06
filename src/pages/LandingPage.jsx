@@ -1,36 +1,55 @@
 import { NavLink } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import PageWrapper from "@/components/page-wrapper";
+import { staggerContainer, fadeInUp, scaleIn } from "@/lib/animations";
 import landinImg1 from "../assets/landingImg1.png";
 
 const LandingPage = () => {
   return (
-    <div className="h-full bg-[#1B1B1E] pt-14 flex flex-col">
-      <main className="sm:px-20 lg:px-36 xl:px-80 md:pb-10 p-6 h-full">
-        <article className="flex flex-col h-full md:flex-row items-center bg-white rounded-xl p-10">
-          <p className="text-justify md:px-20 md:text-3xl text-base">
-            Welcome to my personalized webpage! Delve into a treasure trove of
-            information about me. Feel free to explore to your heart's content
-            and discover the various facets that make up who I am. Whether
-            you're here for a casual browse or a deep dive, I hope you find
-            something intriguing and enjoyable. Happy exploring!
-          </p>
-          <img src={landinImg1} className="md:w-1/3 w-full " />
-          {/* <a href="https://lovepik.com/images/png-web.html">Web Png vectors by Lovepik.com</a> */}
-        </article>
-      </main>
-      <aside className="w-full h-1/2 bg-[#373F51] flex flex-col items-center justify-center gap-4 pb-8">
-        <p className="md:text-2xl text-xl text-white py-4 w-3/4 md:w-1/3 border-b-2 border-white text-center">
-          Start exploring my webpage 💻
-        </p>
-        {/* TODO: fix this footer */}
-        <NavLink
-          to="/about"
-          className="text-xl overflow-hidden rounded relative inline-flex group items-center justify-center px-14 py-2 m-1 cursor-pointer border-b-4 border-l-2 active:border-[#58A4B0] active:shadow-none shadow-lg bg-gradient-to-tr from-[#58A4B0] to-[#58A4B0] border-[#3B747D] text-white"
+    <PageWrapper className="min-h-[calc(100vh-4rem)] flex items-center">
+      <div className="container mx-auto px-4 py-12 md:py-24">
+        <motion.div
+          variants={staggerContainer}
+          initial="initial"
+          animate="animate"
+          className="flex flex-col md:flex-row items-center gap-12 max-w-5xl mx-auto"
         >
-          <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
-          <span className="relative">Go to About </span>
-        </NavLink>
-      </aside>
-    </div>
+          <motion.div variants={fadeInUp} className="flex-1 space-y-6">
+            <p className="text-primary font-medium">Hi, I&apos;m Samuel</p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+              Fullstack{" "}
+              <span className="text-primary">Developer</span>
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-lg">
+              Software Engineer from Cali, Colombia. I build web and mobile
+              applications with React, Next.js, TypeScript, and more. Passionate
+              about clean code and great user experiences.
+            </p>
+            <div className="flex gap-4">
+              <Button asChild size="lg" className="gap-2">
+                <NavLink to="/xp">
+                  View Experience
+                  <ArrowRight className="h-4 w-4" />
+                </NavLink>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <NavLink to="/contact">Contact</NavLink>
+              </Button>
+            </div>
+          </motion.div>
+
+          <motion.div variants={scaleIn} className="flex-1 flex justify-center">
+            <img
+              src={landinImg1}
+              alt="Web development illustration"
+              className="w-full max-w-md drop-shadow-2xl"
+            />
+          </motion.div>
+        </motion.div>
+      </div>
+    </PageWrapper>
   );
 };
 

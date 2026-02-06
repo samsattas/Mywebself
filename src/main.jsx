@@ -1,40 +1,33 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import { RouterProvider, createHashRouter } from 'react-router-dom';
-import LandingPage from './pages/LandingPage.jsx';
-import Navbar from './components/Navbar.jsx';
-import About from './pages/About.jsx';
-import Resume from './pages/Resume.jsx';
-import Experience from './pages/Experience.jsx';
-import Contact from './pages/Contact.jsx';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { RouterProvider, createHashRouter } from "react-router-dom";
+import { ThemeProvider } from "@/components/theme-provider";
+import RootLayout from "@/components/root-layout";
+import LandingPage from "@/pages/LandingPage";
+import About from "@/pages/About";
+import Resume from "@/pages/Resume";
+import Experience from "@/pages/Experience";
+import Contact from "@/pages/Contact";
+import "@/index.css";
 
 const router = createHashRouter([
   {
     path: "/",
-    element: <><Navbar /><LandingPage /></>,
-  },
-  {
-    path: "/about",
-    element: <><Navbar /><About /></>,
-  },
-  {
-    path: "/resume",
-    element: <><Navbar /><Resume /></>,
-  },
-  {
-    path: "/xp",
-    element: <><Navbar /><Experience /></>,
-  },
-  {
-    path: "/contact",
-    element: <><Navbar /><Contact /></>,
+    element: <RootLayout />,
+    children: [
+      { index: true, element: <LandingPage /> },
+      { path: "about", element: <About /> },
+      { path: "resume", element: <Resume /> },
+      { path: "xp", element: <Experience /> },
+      { path: "contact", element: <Contact /> },
+    ],
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
-)
+    <ThemeProvider defaultTheme="dark">
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  </React.StrictMode>
+);

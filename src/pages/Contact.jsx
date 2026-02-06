@@ -1,44 +1,128 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Mail, Github, Linkedin, Phone, MapPin, Copy, Check } from "lucide-react";
 import {
-  ContactIcon,
-  GithubIcon,
-  LinkedinIcon,
-} from "../assets/icons/heroicons";
-import ContactItem from "../components/ContactItem";
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import PageWrapper from "@/components/page-wrapper";
+import { staggerContainer, fadeInUp } from "@/lib/animations";
+
+const contacts = [
+  {
+    icon: Mail,
+    text: "samuelsatizabaltascon@gmail.com",
+    link: "mailto:samuelsatizabaltascon@gmail.com",
+    copyText: "samuelsatizabaltascon@gmail.com",
+    label: "Email",
+  },
+  {
+    icon: Phone,
+    text: "+57 302 341 1009",
+    link: "tel:+573023411009",
+    copyText: "+573023411009",
+    label: "Phone",
+  },
+  {
+    icon: Linkedin,
+    text: "LinkedIn",
+    link: "https://www.linkedin.com/in/samuel-satizabal-397062239/",
+    copyText: "https://www.linkedin.com/in/samuel-satizabal-397062239/",
+    label: "LinkedIn",
+  },
+  {
+    icon: Github,
+    text: "GitHub",
+    link: "https://github.com/samsattas",
+    copyText: "https://github.com/samsattas",
+    label: "GitHub",
+  },
+];
 
 const Contact = () => {
+  const [copied, setCopied] = useState(null);
+
+  const handleCopy = (e, text) => {
+    e.preventDefault();
+    navigator.clipboard.writeText(text);
+    setCopied(text);
+    setTimeout(() => setCopied(null), 2000);
+  };
+
   return (
-    <div className="h-full bg-[#1B1B1E] pt-14 flex flex-col">
-      <main className="sm:px-20 lg:px-36 xl:px-80 md:pb-10 p-6 h-full">
-        <article className="flex flex-col h-fit  items-center gap-6 md:gap-10 bg-white rounded-xl p-5 md:p-10 pb-16 [2.3vh]">
-          <h2 className="text-[4vh] text-center md:text-start font-bold w-full border-b-[#1B1B1E] border-b-2 block ">
-            Contact me
-          </h2>
-          <p className="text-justify text-[2.3vh] w-full">
-            Find me on:
-            <ul className="flex flex-col gap-2 w-full p-10 sm:w-80 sm:p-4">
-              <ContactItem
-                Icon={ContactIcon}
-                text={"Email"}
-                color={"#58A4B0"}
-                link={"mailto:samuelsatizabaltascon@gmail.com"}
-              />
-              <ContactItem
-                Icon={LinkedinIcon}
-                text={"LinkedIn"}
-                color={"#373F51"}
-                link={"https://www.linkedin.com/in/samuel-satizabal-397062239/"}
-              />
-              <ContactItem
-                Icon={GithubIcon}
-                text={"GitHub"}
-                color={"#1B1B1E"}
-                link={"https://github.com/samsattas"}
-              />
-            </ul>
-          </p>
-        </article>
-      </main>
-    </div>
+    <PageWrapper>
+      <div className="container mx-auto px-4 py-12 max-w-2xl">
+        <motion.div
+          variants={staggerContainer}
+          initial="initial"
+          animate="animate"
+          className="space-y-8"
+        >
+          <motion.div variants={fadeInUp}>
+            <Card>
+              <CardHeader>
+                <CardTitle>Contact me</CardTitle>
+                <p className="text-muted-foreground flex items-center gap-1.5">
+                  <MapPin className="h-4 w-4" />
+                  Cali, Colombia
+                </p>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {contacts.map((c) => (
+                  <motion.div
+                    key={c.label}
+                    whileHover={{ x: 4 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <a
+                      href={c.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-4 p-4 rounded-lg hover:bg-accent transition-colors"
+                    >
+                      <div className="h-10 w-10 rounded-md bg-primary flex items-center justify-center text-primary-foreground shrink-0">
+                        <c.icon className="h-5 w-5" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs text-muted-foreground">{c.label}</p>
+                        <p className="font-medium truncate">{c.text}</p>
+                      </div>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="shrink-0"
+                            onClick={(e) => handleCopy(e, c.copyText)}
+                          >
+                            {copied === c.copyText ? (
+                              <Check className="h-4 w-4 text-green-500" />
+                            ) : (
+                              <Copy className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          {copied === c.copyText ? "Copied!" : "Copy"}
+                        </TooltipContent>
+                      </Tooltip>
+                    </a>
+                  </motion.div>
+                ))}
+              </CardContent>
+            </Card>
+          </motion.div>
+        </motion.div>
+      </div>
+    </PageWrapper>
   );
 };
 

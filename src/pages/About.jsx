@@ -1,113 +1,150 @@
+import { motion } from "framer-motion";
+import { MapPin } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import PageWrapper from "@/components/page-wrapper";
+import { staggerContainer, fadeInUp } from "@/lib/animations";
+import {
+  technicalSkills,
+  softSkills,
+  languages,
+  interests,
+  education,
+} from "@/data/resume-data";
 import profile from "../assets/Profile.png";
-import Skill from "../components/Skill";
 
 const About = () => {
   return (
-    <div className="h-full bg-[#1B1B1E] pt-14 flex flex-col">
-      <main className="sm:px-20 lg:px-36 xl:px-80 sm:pb-10 p-6 h-full flex flex-col gap-8">
-        <article className="flex flex-col h-fit md:flex-row items-center gap-6 md:gap-16 bg-white rounded-xl p-5 md:p-10 pb-16">
-          <h2 className="text-[4vh] text-center md:text-start font-bold w-full border-b-[#1B1B1E] border-b-2 block md:hidden">
-            About me
-          </h2>
-          <img
-            src={profile}
-            className="rounded-full w-2/3 md:w-1/3 lg:w-1/4 md:rounded-xl md:drop-shadow-[30px_30px_1px_#A9BCD0]"
-          />
-          <p className="text-justify text-[2.3vh] w-full">
-            <h2 className="text-[4vh] text-center md:text-start font-bold w-full border-b-[#1B1B1E] border-b-2 hidden md:block">
-              About me
-            </h2>
-            <br />I am a full-stack developer, certified as a systems engineer,
-            with experience in{" "}
-            <b>C#, Java, JavaScript, React, Tailwind, SQL, git, Sass</b>, and
-            best practices such as{" "}
-            <b>
-              accessibility, mobile-first, responsive design, atomic design, and
-              BEM
-            </b>
-            . Passionate about creating intuitive and visually appealing user
-            experiences.{" "}
-            <b>Strong problem-solving skills and a detail-oriented approach</b>{" "}
-            to delivering high-quality code. I consider myself a highly
-            analytical, creative person with the <b>ability to learn quickly</b>{" "}
-            and efficiently.
-          </p>
-        </article>
-        <article className="flex flex-col h-fit items-center gap-6  bg-white rounded-xl p-5 md:p-10 pb-16">
-          <h2 className="text-[4vh] text-center md:text-start font-bold w-full border-b-[#1B1B1E] border-b-2 block ">
-            Skills
-          </h2>
-          <div className="w-full flex gap-6 flex-col lg:flex-row">
-            <div className="flex flex-col gap-4 w-full">
-              <h3 className="text-[3vh] font-bold">Front-end</h3>
-              <ul className="flex flex-col gap-2">
-                <Skill name="HTML" value={80} />
-                <Skill name="CSS" value={75} />
-                <Skill name="JavaScript" value={70} />
-                <Skill name="React" value={85} />
-                <Skill name="Sass" value={65} />
-                <Skill name="Tailwind" value={80} />
-                <Skill name="Next.js" value={50} />
-                <Skill name="UX" value={70} />
-                <Skill name="React native" value={50} />
-                <Skill name="Responsive design" value={90} />
-                <Skill name="Jest" value={40} />
-              </ul>
-            </div>
-            <div className="flex flex-col gap-4 w-full">
-              <h3 className="text-[3vh] font-bold">Back-end</h3>
-              <ul className="flex flex-col gap-2">
-                <Skill name="Java" value={60} />
-                <Skill name="C#" value={60} />
-                <Skill name="Spring" value={50} />
-                <Skill name="SQL" value={70} />
-                <Skill name="Node" value={30} />
-                <Skill name="S3" value={60} />
-                <Skill name="Codecommit" value={60} />
-                <Skill name="Git" value={85} />
-                <Skill name="JUnit" value={50} />
-              </ul>
-            </div>
-          </div>
-          <div className="w-full flex gap-6 flex-col lg:flex-row">
-            <div className="flex flex-col gap-4 w-full">
-              <h3 className="text-[3vh] font-bold">Other skills</h3>
-              <ul className="flex flex-col gap-2">
-                <Skill name="Agile methodologies" />
-                <Skill name="Adaptability" />
-                <Skill name="Attention to detail" />
-                <Skill name="Creative" />
-                <Skill name="Perceptive" />
-                <Skill name="Self-motivated" />
-                <Skill name="Assertive communication" />
-              </ul>
-            </div>
-            <div className="flex flex-col gap-4 w-full">
-              <h3 className="text-[3vh] font-bold">Languages</h3>
-              <ul className="flex flex-col gap-2">
-                <Skill name="English: C1" />
-                <Skill name="Spanish: Native" />
-              </ul>
-            </div>
-          </div>
-        </article>
-        <article className="flex flex-col h-fit items-center gap-6  bg-white rounded-xl p-5 md:p-10 pb-16">
-          <h2 className="text-[4vh] text-center md:text-start font-bold w-full border-b-[#1B1B1E] border-b-2 block ">
-            Education
-          </h2>
-          <p className="w-full flex flex-col gap-4 text-[2.3vh]">
-            <span>
-              <b>Systems Engineer degree</b>
-              <br /> - Universidad ICESI, Colombia (2018-2023)
-            </span>
-            <span>
-              <b>Student exchange</b>
-              <br /> - Goose Creek, SC, United States
-            </span>
-          </p>
-        </article>
-      </main>
-    </div>
+    <PageWrapper>
+      <div className="container mx-auto px-4 py-12 max-w-4xl">
+        <motion.div
+          variants={staggerContainer}
+          initial="initial"
+          animate="animate"
+          className="space-y-8"
+        >
+          {/* About Me Card */}
+          <motion.div variants={fadeInUp}>
+            <Card>
+              <CardContent className="flex flex-col md:flex-row items-center gap-8 p-8">
+                <Avatar className="h-40 w-40 md:h-48 md:w-48 rounded-xl">
+                  <AvatarImage src={profile} alt="Samuel Satizabal" className="object-cover" />
+                  <AvatarFallback className="text-4xl rounded-xl">SS</AvatarFallback>
+                </Avatar>
+                <div className="space-y-4 flex-1">
+                  <div>
+                    <h2 className="text-3xl font-bold">Samuel Satizabal</h2>
+                    <p className="text-primary font-medium">Fullstack Developer</p>
+                    <p className="text-sm text-muted-foreground flex items-center gap-1 mt-1">
+                      <MapPin className="h-3.5 w-3.5" />
+                      Cali, Colombia
+                    </p>
+                  </div>
+                  <Separator />
+                  <p className="text-muted-foreground leading-relaxed">
+                    Software Engineer from ICESI University with experience building
+                    web and mobile applications across multiple industries. Skilled in{" "}
+                    <strong>React, Next.js, TypeScript, Angular, React Native, C#/.NET,
+                    NestJS, GraphQL, and SQL</strong>. I thrive in fast-paced environments,
+                    enjoy solving complex problems, and care deeply about writing clean,
+                    maintainable code. When I&apos;m not coding, you&apos;ll find me
+                    folding origami or brewing coffee.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Skills Card */}
+          <motion.div variants={fadeInUp}>
+            <Card>
+              <CardHeader>
+                <CardTitle>Skills & Technologies</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-3">
+                  <h3 className="text-lg font-semibold">Technical</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {technicalSkills.map((s) => (
+                      <Badge key={s} variant="secondary">
+                        {s}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                <Separator />
+
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div className="space-y-3">
+                    <h3 className="text-lg font-semibold">Soft Skills</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {softSkills.map((s) => (
+                        <Badge key={s} variant="outline">
+                          {s}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <h3 className="text-lg font-semibold">Languages</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {languages.map((l) => (
+                        <Badge key={l} variant="outline">
+                          {l}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <h3 className="text-lg font-semibold">Interests</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {interests.map((i) => (
+                        <Badge key={i} variant="outline">
+                          {i}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Education Card */}
+          <motion.div variants={fadeInUp}>
+            <Card>
+              <CardHeader>
+                <CardTitle>Education</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {education.map((edu, i) => (
+                  <div key={i}>
+                    <h3 className="font-semibold text-lg">{edu.title}</h3>
+                    <p className="text-muted-foreground">
+                      {edu.institution} &mdash; {edu.location}
+                    </p>
+                    {edu.detail && (
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {edu.detail}
+                      </p>
+                    )}
+                    {i < education.length - 1 && <Separator className="mt-4" />}
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </motion.div>
+        </motion.div>
+      </div>
+    </PageWrapper>
   );
 };
 

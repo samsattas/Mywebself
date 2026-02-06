@@ -1,82 +1,100 @@
-import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
+import { Home, User, Briefcase, FileText, Mail, Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
-  AboutIcon,
-  ContactIcon,
-  ExpIcon,
-  HomeIcon,
-  ResumeIcon,
-} from "../assets/icons/heroicons";
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { cn } from "@/lib/utils";
+
+const navItems = [
+  { path: "/", label: "Home", icon: Home },
+  { path: "/about", label: "About", icon: User },
+  { path: "/xp", label: "Experience", icon: Briefcase },
+  { path: "/resume", label: "Resume", icon: FileText },
+  { path: "/contact", label: "Contact", icon: Mail },
+];
 
 const Navbar = () => {
-  //TODO: show selected page
-  const [selected, setSelected] = useState("home");
+  const location = useLocation();
+  const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    const path = window.location.hash;
-    switch (path) {
-      case "#/":
-        setSelected("home");
-        break;
-      case "#/about":
-        setSelected("about");
-        break;
-      case "#/xp":
-        setSelected("xp");
-        break;
-      case "#/contact":
-        setSelected("contact");
-        break;
-      default:
-        setSelected("home");
-    }
-  }, [window.location]);
+  const isActive = (path) => {
+    if (path === "/") return location.pathname === "/";
+    return location.pathname.startsWith(path);
+  };
 
   return (
-    <header className="flex w-full justify-between px-6 sm:px-8 bg-[#1B1B1E] text-white h-14 absolute">
-      <h1 className="self-center text-2xl font-extrabold">Mywebself</h1>
-      <nav className="flex gap-4 sm:gap-0">
-        <NavLink
-          className={` ${
-            selected === "home" && "bg-none sm:bg-[#373F51]"
-          } self-center sm:p-4 transition duration-100 sm:hover:bg-[#373F51] rounded-b-lg`}
-          to={"/"}
-          onClick={() => setSelected("home")}
-        >
-          <HomeIcon className={"sm:hidden"} />
-          <p className="hidden sm:block">Home</p>
+    <header className="fixed top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-14 items-center justify-between">
+        <NavLink to="/" className="text-xl font-extrabold tracking-tight">
+          Mywebself
         </NavLink>
-        <NavLink
-          className={` ${
-            selected === "about" && "bg-none sm:bg-[#373F51]"
-          } self-center sm:p-4 transition duration-100 sm:hover:bg-[#373F51] rounded-b-lg`}
-          to={"/about"}
-          onClick={() => setSelected("about")}
-        >
-          <ResumeIcon className={"sm:hidden"} />
-          <p className="hidden sm:block">About</p>
-        </NavLink>
-        <NavLink
-          className={` ${
-            selected === "xp" && "bg-none sm:bg-[#373F51]"
-          } self-center sm:p-4 transition duration-100 sm:hover:bg-[#373F51] rounded-b-lg`}
-          to={"/xp"}
-          onClick={() => setSelected("xp")}
-        >
-          <ExpIcon className={"sm:hidden"} />
-          <p className="hidden sm:block">Experience</p>
-        </NavLink>
-        <NavLink
-          className={` ${
-            selected === "contact" && "bg-none sm:bg-[#373F51]"
-          } self-center sm:p-4 transition duration-100 sm:hover:bg-[#373F51] rounded-b-lg`}
-          to={"/contact"}
-          onClick={() => setSelected("contact")}
-        >
-          <ContactIcon className={"sm:hidden"} />
-          <p className="hidden sm:block">Contact</p>
-        </NavLink>
-      </nav>
+
+        {/* Desktop navigation */}
+        <nav className="hidden md:flex items-center gap-1">
+          {navItems.map((item) => (
+            <NavLink key={item.path} to={item.path}>
+              <Button
+                variant="ghost"
+                className={cn(
+                  "gap-2",
+                  isActive(item.path) &&
+                    "bg-accent text-accent-foreground"
+                )}
+              >
+                <item.icon className="h-4 w-4" />
+                {item.label}
+              </Button>
+            </NavLink>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+
+          {/* Mobile navigation */}
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild className="md:hidden">
+              <Button variant="ghost" size="icon">
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right">
+              <SheetHeader>
+                <SheetTitle>Navigation</SheetTitle>
+              </SheetHeader>
+              <nav className="flex flex-col gap-2 mt-6">
+                {navItems.map((item) => (
+                  <NavLink
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setOpen(false)}
+                  >
+                    <Button
+                      variant="ghost"
+                      className={cn(
+                        "w-full justify-start gap-3 text-base",
+                        isActive(item.path) &&
+                          "bg-accent text-accent-foreground"
+                      )}
+                    >
+                      <item.icon className="h-5 w-5" />
+                      {item.label}
+                    </Button>
+                  </NavLink>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
     </header>
   );
 };
