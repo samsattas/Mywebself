@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
-import { Home, User, Briefcase, FileText, Mail, Menu } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Home, User, Briefcase, GraduationCap, Mail, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -13,45 +12,74 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { path: "/", label: "Home", icon: Home },
-  { path: "/about", label: "About", icon: User },
-  { path: "/xp", label: "Experience", icon: Briefcase },
-  { path: "/resume", label: "Resume", icon: FileText },
-  { path: "/contact", label: "Contact", icon: Mail },
+  { id: "hero", label: "Home", icon: Home },
+  { id: "about", label: "About", icon: User },
+  { id: "experience", label: "Experience", icon: Briefcase },
+  { id: "education", label: "Education", icon: GraduationCap },
+  { id: "contact", label: "Contact", icon: Mail },
 ];
 
 const Navbar = () => {
-  const location = useLocation();
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("hero");
 
-  const isActive = (path) => {
-    if (path === "/") return location.pathname === "/";
-    return location.pathname.startsWith(path);
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = navItems.map((item) => ({
+        id: item.id,
+        el: document.getElementById(item.id),
+      }));
+
+      const scrollY = window.scrollY + 80;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section.el && section.el.offsetTop <= scrollY) {
+          setActive(section.id);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollTo = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const offset = 64;
+      const top = el.offsetTop - offset;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+    setOpen(false);
   };
 
   return (
     <header className="fixed top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center justify-between">
-        <NavLink to="/" className="text-xl font-extrabold tracking-tight">
-          Mywebself
-        </NavLink>
+        <button
+          onClick={() => scrollTo("hero")}
+          className="text-xl font-extrabold tracking-tight hover:text-primary transition-colors"
+        >
+          Samuel Satizabal
+        </button>
 
         {/* Desktop navigation */}
         <nav className="hidden md:flex items-center gap-1">
           {navItems.map((item) => (
-            <NavLink key={item.path} to={item.path}>
-              <Button
-                variant="ghost"
-                className={cn(
-                  "gap-2",
-                  isActive(item.path) &&
-                    "bg-accent text-accent-foreground"
-                )}
-              >
-                <item.icon className="h-4 w-4" />
-                {item.label}
-              </Button>
-            </NavLink>
+            <Button
+              key={item.id}
+              variant="ghost"
+              className={cn(
+                "gap-2 cursor-pointer",
+                active === item.id && "bg-accent text-accent-foreground"
+              )}
+              onClick={() => scrollTo(item.id)}
+            >
+              <item.icon className="h-4 w-4" />
+              {item.label}
+            </Button>
           ))}
         </nav>
 
@@ -72,23 +100,18 @@ const Navbar = () => {
               </SheetHeader>
               <nav className="flex flex-col gap-2 mt-6">
                 {navItems.map((item) => (
-                  <NavLink
-                    key={item.path}
-                    to={item.path}
-                    onClick={() => setOpen(false)}
+                  <Button
+                    key={item.id}
+                    variant="ghost"
+                    className={cn(
+                      "w-full justify-start gap-3 text-base cursor-pointer",
+                      active === item.id && "bg-accent text-accent-foreground"
+                    )}
+                    onClick={() => scrollTo(item.id)}
                   >
-                    <Button
-                      variant="ghost"
-                      className={cn(
-                        "w-full justify-start gap-3 text-base",
-                        isActive(item.path) &&
-                          "bg-accent text-accent-foreground"
-                      )}
-                    >
-                      <item.icon className="h-5 w-5" />
-                      {item.label}
-                    </Button>
-                  </NavLink>
+                    <item.icon className="h-5 w-5" />
+                    {item.label}
+                  </Button>
                 ))}
               </nav>
             </SheetContent>
