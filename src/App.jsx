@@ -9,6 +9,7 @@ import {
   Copy,
   Check,
   ArrowDown,
+  Download,
 } from "lucide-react";
 import {
   Card,
@@ -35,6 +36,8 @@ import {
   education,
 } from "@/data/resume-data";
 import profile from "./assets/Profile.png";
+import cvPdf from "./assets/doc/CV_Samuel_Satizabal_EN.pdf";
+import reactCert from "./assets/doc/UC-4796d0e7-d55e-443a-b878-b035b1c07af5.pdf";
 
 /* ─── Animated background for hero ─── */
 const FloatingShape = ({ className, size, delay, duration, x, y }) => (
@@ -108,6 +111,12 @@ const contacts = [
 export default function App() {
   const [copied, setCopied] = useState(null);
 
+  const educationWithCerts = education.map((edu) =>
+    edu.title.includes("React - The Complete Guide")
+      ? { ...edu, cert: reactCert }
+      : edu
+  );
+
   const handleCopy = (e, text) => {
     e.preventDefault();
     navigator.clipboard.writeText(text);
@@ -171,7 +180,7 @@ export default function App() {
             </motion.p>
             <motion.div
               variants={fadeInUp}
-              className="flex gap-4 justify-center md:justify-start"
+              className="flex flex-wrap gap-4 justify-center md:justify-start"
             >
               <Button size="lg" className="gap-2" onClick={() => scrollTo("experience")}>
                 View Experience
@@ -179,6 +188,12 @@ export default function App() {
               </Button>
               <Button variant="outline" size="lg" onClick={() => scrollTo("contact")}>
                 Contact
+              </Button>
+              <Button variant="ghost" size="lg" className="gap-2" asChild>
+                <a href={cvPdf} download="CV_Samuel_Satizabal.pdf">
+                  <Download className="h-4 w-4" />
+                  Resume
+                </a>
               </Button>
             </motion.div>
           </motion.div>
@@ -304,15 +319,26 @@ export default function App() {
           <h2 className="text-3xl font-bold">Education</h2>
           <Card>
             <CardContent className="p-6 space-y-4">
-              {education.map((edu, i) => (
+              {educationWithCerts.map((edu, i) => (
                 <div key={i}>
-                  <h3 className="font-semibold text-lg">{edu.title}</h3>
-                  <p className="text-muted-foreground">
-                    {edu.institution} &mdash; {edu.location}
-                  </p>
-                  {edu.detail && (
-                    <p className="text-sm text-muted-foreground mt-1">{edu.detail}</p>
-                  )}
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <h3 className="font-semibold text-lg">{edu.title}</h3>
+                      <p className="text-muted-foreground">
+                        {edu.institution} &mdash; {edu.location}
+                      </p>
+                      {edu.detail && (
+                        <p className="text-sm text-muted-foreground mt-1">{edu.detail}</p>
+                      )}
+                    </div>
+                    {edu.cert && (
+                      <Button variant="ghost" size="icon" className="shrink-0" asChild>
+                        <a href={edu.cert} download>
+                          <Download className="h-4 w-4" />
+                        </a>
+                      </Button>
+                    )}
+                  </div>
                   {i < education.length - 1 && <Separator className="mt-4" />}
                 </div>
               ))}

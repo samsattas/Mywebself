@@ -103,6 +103,12 @@ export const education = [
     detail: "Honor roll semesters I, V, VI, VIII",
   },
   {
+    title: "React - The Complete Guide (incl. Next.js, Redux)",
+    institution: "Udemy — Maximilian Schwarzmüller",
+    location: "Online",
+    detail: "Feb 2026 · 71.5 hours",
+  },
+  {
     title: "Study Abroad",
     institution: "Stratford High School",
     location: "Goose Creek, SC, United States",
