@@ -10,13 +10,10 @@ import {
   Check,
   ArrowDown,
   Download,
+  ExternalLink,
+  Eye,
 } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -26,6 +23,13 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { staggerContainer, fadeInUp } from "@/lib/animations";
 import {
   experiences,
@@ -114,7 +118,7 @@ export default function App() {
   const educationWithCerts = education.map((edu) =>
     edu.title.includes("React - The Complete Guide")
       ? { ...edu, cert: reactCert }
-      : edu
+      : edu,
   );
 
   const handleCopy = (e, text) => {
@@ -139,11 +143,46 @@ export default function App() {
         className="min-h-[calc(100vh-3.5rem)] flex items-center relative overflow-hidden"
       >
         <div className="absolute inset-0 pointer-events-none">
-          <FloatingShape className="bg-primary" size={300} x={-50} y={-80} delay={0} duration={25} />
-          <FloatingShape className="bg-primary/60 blur-2xl" size={200} x={400} y={100} delay={2} duration={22} />
-          <FloatingShape className="bg-secondary blur-xl" size={250} x={600} y={-120} delay={4} duration={28} />
-          <FloatingShape className="bg-primary/40 blur-3xl" size={350} x={200} y={300} delay={1} duration={30} />
-          <FloatingShape className="bg-secondary/50 blur-2xl" size={180} x={-100} y={250} delay={3} duration={18} />
+          <FloatingShape
+            className="bg-primary"
+            size={300}
+            x={-50}
+            y={-80}
+            delay={0}
+            duration={25}
+          />
+          <FloatingShape
+            className="bg-primary/60 blur-2xl"
+            size={200}
+            x={400}
+            y={100}
+            delay={2}
+            duration={22}
+          />
+          <FloatingShape
+            className="bg-secondary blur-xl"
+            size={250}
+            x={600}
+            y={-120}
+            delay={4}
+            duration={28}
+          />
+          <FloatingShape
+            className="bg-primary/40 blur-3xl"
+            size={350}
+            x={200}
+            y={300}
+            delay={1}
+            duration={30}
+          />
+          <FloatingShape
+            className="bg-secondary/50 blur-2xl"
+            size={180}
+            x={-100}
+            y={250}
+            delay={3}
+            duration={18}
+          />
           <div
             className="absolute inset-0 opacity-[0.03]"
             style={{
@@ -161,7 +200,10 @@ export default function App() {
             animate="animate"
             className="max-w-3xl mx-auto text-center md:text-left"
           >
-            <motion.p variants={fadeInUp} className="text-primary font-medium mb-4">
+            <motion.p
+              variants={fadeInUp}
+              className="text-primary font-medium mb-4"
+            >
               Hi, I&apos;m Samuel
             </motion.p>
             <motion.h1
@@ -182,11 +224,19 @@ export default function App() {
               variants={fadeInUp}
               className="flex flex-wrap gap-4 justify-center md:justify-start"
             >
-              <Button size="lg" className="gap-2" onClick={() => scrollTo("experience")}>
+              <Button
+                size="lg"
+                className="gap-2"
+                onClick={() => scrollTo("experience")}
+              >
                 View Experience
                 <ArrowDown className="h-4 w-4" />
               </Button>
-              <Button variant="outline" size="lg" onClick={() => scrollTo("contact")}>
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => scrollTo("contact")}
+              >
                 Contact
               </Button>
               <Button variant="ghost" size="lg" className="gap-2" asChild>
@@ -206,8 +256,14 @@ export default function App() {
           <Card>
             <CardContent className="flex flex-col md:flex-row items-center gap-8 p-8">
               <Avatar className="h-40 w-40 md:h-48 md:w-48 rounded-xl">
-                <AvatarImage src={profile} alt="Samuel Satizabal" className="object-cover" />
-                <AvatarFallback className="text-4xl rounded-xl">SS</AvatarFallback>
+                <AvatarImage
+                  src={profile}
+                  alt="Samuel Satizabal"
+                  className="object-cover"
+                />
+                <AvatarFallback className="text-4xl rounded-xl">
+                  SS
+                </AvatarFallback>
               </Avatar>
               <div className="space-y-4 flex-1">
                 <div>
@@ -219,16 +275,17 @@ export default function App() {
                 </div>
                 <Separator />
                 <p className="text-muted-foreground leading-relaxed">
-                  Software Engineer from ICESI University with experience building
-                  web and mobile applications across multiple industries. Skilled in{" "}
+                  Software Engineer from ICESI University with experience
+                  building web and mobile applications across multiple
+                  industries. Skilled in{" "}
                   <strong>
                     React, Next.js, TypeScript, Angular, React Native, C#/.NET,
                     NestJS, GraphQL, and SQL
                   </strong>
                   . I thrive in fast-paced environments, enjoy solving complex
-                  problems, and care deeply about writing clean, maintainable code.
-                  When I&apos;m not coding, you&apos;ll find me folding origami or
-                  brewing coffee.
+                  problems, and care deeply about writing clean, maintainable
+                  code. When I&apos;m not coding, you&apos;ll find me folding
+                  origami or brewing coffee.
                 </p>
               </div>
             </CardContent>
@@ -244,7 +301,9 @@ export default function App() {
                 <h3 className="text-lg font-semibold">Technical</h3>
                 <div className="flex flex-wrap gap-2">
                   {technicalSkills.map((s) => (
-                    <Badge key={s} variant="secondary">{s}</Badge>
+                    <Badge key={s} variant="secondary">
+                      {s}
+                    </Badge>
                   ))}
                 </div>
               </div>
@@ -254,7 +313,9 @@ export default function App() {
                   <h3 className="text-lg font-semibold">Soft Skills</h3>
                   <div className="flex flex-wrap gap-2">
                     {softSkills.map((s) => (
-                      <Badge key={s} variant="outline">{s}</Badge>
+                      <Badge key={s} variant="outline">
+                        {s}
+                      </Badge>
                     ))}
                   </div>
                 </div>
@@ -262,7 +323,9 @@ export default function App() {
                   <h3 className="text-lg font-semibold">Languages</h3>
                   <div className="flex flex-wrap gap-2">
                     {languages.map((l) => (
-                      <Badge key={l} variant="outline">{l}</Badge>
+                      <Badge key={l} variant="outline">
+                        {l}
+                      </Badge>
                     ))}
                   </div>
                 </div>
@@ -270,7 +333,9 @@ export default function App() {
                   <h3 className="text-lg font-semibold">Interests</h3>
                   <div className="flex flex-wrap gap-2">
                     {interests.map((i) => (
-                      <Badge key={i} variant="outline">{i}</Badge>
+                      <Badge key={i} variant="outline">
+                        {i}
+                      </Badge>
                     ))}
                   </div>
                 </div>
@@ -297,14 +362,22 @@ export default function App() {
                   <CardHeader>
                     <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                       <div className="flex-1">
-                        <CardTitle className="text-lg">{exp.position}</CardTitle>
-                        <p className="text-sm text-primary font-medium">{exp.company}</p>
+                        <CardTitle className="text-lg">
+                          {exp.position}
+                        </CardTitle>
+                        <p className="text-sm text-primary font-medium">
+                          {exp.company}
+                        </p>
                       </div>
-                      <Badge variant="outline" className="w-fit">{exp.date}</Badge>
+                      <Badge variant="outline" className="w-fit">
+                        {exp.date}
+                      </Badge>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground leading-relaxed">{exp.description}</p>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {exp.description}
+                    </p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -328,15 +401,36 @@ export default function App() {
                         {edu.institution} &mdash; {edu.location}
                       </p>
                       {edu.detail && (
-                        <p className="text-sm text-muted-foreground mt-1">{edu.detail}</p>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          {edu.detail}
+                        </p>
                       )}
                     </div>
                     {edu.cert && (
-                      <Button variant="ghost" size="icon" className="shrink-0" asChild>
-                        <a href={edu.cert} download>
-                          <Download className="h-4 w-4" />
-                        </a>
-                      </Button>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="shrink-0"
+                          >
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-4xl h-[80vh] flex flex-col overflow-hidden">
+                          <div className="p-4 pr-10">
+                            <DialogTitle>{edu.title}</DialogTitle>
+                            <DialogDescription>
+                              {edu.institution} &mdash; {edu.detail}
+                            </DialogDescription>
+                          </div>
+                          <iframe
+                            src={edu.cert}
+                            className="w-full flex-1 border-0"
+                            title={edu.title}
+                          />
+                        </DialogContent>
+                      </Dialog>
                     )}
                   </div>
                   {i < education.length - 1 && <Separator className="mt-4" />}
@@ -408,7 +502,8 @@ export default function App() {
       {/* ────────── FOOTER ────────── */}
       <footer className="border-t py-8">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} Samuel Satizabal. Built with React & shadcn/ui.
+          &copy; {new Date().getFullYear()} Samuel Satizabal. Built with React &
+          shadcn/ui.
         </div>
       </footer>
     </div>
