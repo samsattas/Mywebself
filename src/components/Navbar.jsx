@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Home, User, Briefcase, GraduationCap, Mail, Menu } from "lucide-react";
+import { Home, User, Briefcase, FolderGit2, Layers, GraduationCap, Mail, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -15,6 +15,8 @@ const navItems = [
   { id: "hero", label: "Home", icon: Home },
   { id: "about", label: "About", icon: User },
   { id: "experience", label: "Experience", icon: Briefcase },
+  { id: "projects", label: "Projects", icon: FolderGit2 },
+  { id: "apps", label: "Products", icon: Layers },
   { id: "education", label: "Education", icon: GraduationCap },
   { id: "contact", label: "Contact", icon: Mail },
 ];
@@ -66,19 +68,20 @@ const Navbar = () => {
         </button>
 
         {/* Desktop navigation */}
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden md:flex items-center gap-0.5 lg:gap-1 overflow-x-auto">
           {navItems.map((item) => (
             <Button
               key={item.id}
               variant="ghost"
+              size="sm"
               className={cn(
-                "gap-2 cursor-pointer",
+                "gap-1.5 lg:gap-2 cursor-pointer px-2 lg:px-3 shrink-0",
                 active === item.id && "bg-accent text-accent-foreground"
               )}
               onClick={() => scrollTo(item.id)}
             >
               <item.icon className="h-4 w-4" />
-              {item.label}
+              <span className="hidden lg:inline">{item.label}</span>
             </Button>
           ))}
         </nav>

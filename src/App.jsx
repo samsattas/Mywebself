@@ -9,9 +9,9 @@ import {
   Copy,
   Check,
   ArrowDown,
-  Download,
   ExternalLink,
   Eye,
+  Sparkles,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -33,15 +33,41 @@ import {
 import { staggerContainer, fadeInUp } from "@/lib/animations";
 import {
   experiences,
+  projects,
+  apps,
   technicalSkills,
+  aiTools,
   softSkills,
   languages,
   interests,
   education,
 } from "@/data/resume-data";
 import profile from "./assets/Profile.png";
-import cvPdf from "./assets/doc/CV_Samuel_Satizabal_EN.pdf";
 import reactCert from "./assets/doc/UC-4796d0e7-d55e-443a-b878-b035b1c07af5.pdf";
+import sqlVisualizerImg from "./assets/projects/sql-visualizer.png";
+import charakasImg from "./assets/projects/charakas.png";
+import umlClassDesignerImg from "./assets/projects/uml-class-designer.png";
+import diptravelAgentsImg from "./assets/apps/diptravel-agents.png";
+import lailaImg from "./assets/apps/laila.png";
+import teachlyImg from "./assets/apps/teachly.png";
+import digisigncolImg from "./assets/apps/digisigncol.png";
+import noctaImg from "./assets/apps/nocta.png";
+import emcaliImg from "./assets/apps/emcali.png";
+
+const projectImages = {
+  "sql-visualizer": sqlVisualizerImg,
+  charakas: charakasImg,
+  "uml-class-designer": umlClassDesignerImg,
+};
+
+const appImages = {
+  "diptravel-agents": diptravelAgentsImg,
+  laila: lailaImg,
+  teachly: teachlyImg,
+  digisigncol: digisigncolImg,
+  nocta: noctaImg,
+  emcali: emcaliImg,
+};
 
 /* ─── Animated background for hero ─── */
 const FloatingShape = ({ className, size, delay, duration, x, y }) => (
@@ -216,9 +242,11 @@ export default function App() {
               variants={fadeInUp}
               className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mb-8"
             >
-              Software Engineer from Cali, Colombia. I build web and mobile
-              applications with React, Next.js, TypeScript, and more. Passionate
-              about clean code and great user experiences.
+              Software Engineer from Cali, Colombia with 4+ years shipping
+              production web and mobile apps — React, Next.js, React Native,
+              TypeScript, NestJS, and C#/.NET — for startups and enterprise
+              clients alike. Currently building an AI-powered growth platform
+              at Zelity and a multi-provider booking platform at Diptravel.
             </motion.p>
             <motion.div
               variants={fadeInUp}
@@ -235,15 +263,16 @@ export default function App() {
               <Button
                 variant="outline"
                 size="lg"
+                onClick={() => scrollTo("projects")}
+              >
+                Projects
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
                 onClick={() => scrollTo("contact")}
               >
                 Contact
-              </Button>
-              <Button variant="ghost" size="lg" className="gap-2" asChild>
-                <a href={cvPdf} download="CV_Samuel_Satizabal.pdf">
-                  <Download className="h-4 w-4" />
-                  Resume
-                </a>
               </Button>
             </motion.div>
           </motion.div>
@@ -308,6 +337,28 @@ export default function App() {
                 </div>
               </div>
               <Separator />
+              <div className="space-y-3">
+                <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-primary" />
+                  AI-Assisted Development
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Daily use of AI tooling to accelerate delivery and code
+                  quality.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {aiTools.map((s) => (
+                    <Badge
+                      key={s}
+                      variant="secondary"
+                      className="bg-primary/10 text-primary hover:bg-primary/20"
+                    >
+                      {s}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+              <Separator />
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="space-y-3">
                   <h3 className="text-lg font-semibold">Soft Skills</h3>
@@ -362,8 +413,14 @@ export default function App() {
                   <CardHeader>
                     <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                       <div className="flex-1">
-                        <CardTitle className="text-lg">
+                        <CardTitle className="text-lg flex items-center gap-2">
                           {exp.position}
+                          {exp.current && (
+                            <span className="inline-flex items-center gap-1 text-xs font-medium text-primary">
+                              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+                              Current
+                            </span>
+                          )}
                         </CardTitle>
                         <p className="text-sm text-primary font-medium">
                           {exp.company}
@@ -374,10 +431,162 @@ export default function App() {
                       </Badge>
                     </div>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {exp.description}
+                  <CardContent className="space-y-4">
+                    <ul className="space-y-2">
+                      {exp.bullets.map((b, bi) => (
+                        <li
+                          key={bi}
+                          className="text-muted-foreground leading-relaxed flex gap-2"
+                        >
+                          <span className="text-primary mt-2 h-1 w-1 rounded-full bg-primary shrink-0" />
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    {exp.stack && (
+                      <div className="flex flex-wrap gap-1.5 pt-1">
+                        {exp.stack.map((s) => (
+                          <Badge key={s} variant="outline" className="text-xs">
+                            {s}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* ────────── PROJECTS ────────── */}
+      <Section id="projects" className="py-20 md:py-28 bg-muted/30">
+        <div className="container mx-auto px-4 max-w-5xl space-y-8">
+          <div>
+            <h2 className="text-3xl font-bold">Personal Projects</h2>
+            <p className="text-muted-foreground mt-2">
+              Side projects I built and shipped on my own, live on GitHub
+              Pages.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.map((p, i) => (
+              <motion.div
+                key={p.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+              >
+                <Card className="h-full flex flex-col overflow-hidden group">
+                  <a
+                    href={p.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block overflow-hidden border-b bg-black/90"
+                  >
+                    <img
+                      src={projectImages[p.image]}
+                      alt={`${p.name} screenshot`}
+                      className="w-full h-44 object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </a>
+                  <CardHeader>
+                    <CardTitle className="text-lg">{p.name}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex-1 flex flex-col gap-4">
+                    <p className="text-muted-foreground text-sm leading-relaxed flex-1">
+                      {p.description}
                     </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {p.tags.map((t) => (
+                        <Badge key={t} variant="outline" className="text-xs">
+                          {t}
+                        </Badge>
+                      ))}
+                    </div>
+                    <div className="flex gap-2 pt-1">
+                      <Button size="sm" className="gap-1.5 flex-1" asChild>
+                        <a href={p.demo} target="_blank" rel="noopener noreferrer">
+                          <ExternalLink className="h-3.5 w-3.5" />
+                          Live demo
+                        </a>
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="gap-1.5 flex-1"
+                        asChild
+                      >
+                        <a href={p.repo} target="_blank" rel="noopener noreferrer">
+                          <Github className="h-3.5 w-3.5" />
+                          Code
+                        </a>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* ────────── APPS / PRODUCTS ────────── */}
+      <Section id="apps" className="py-20 md:py-28">
+        <div className="container mx-auto px-4 max-w-5xl space-y-8">
+          <div>
+            <h2 className="text-3xl font-bold">Products I&apos;ve Worked On</h2>
+            <p className="text-muted-foreground mt-2">
+              Live apps and platforms I&apos;ve contributed to as part of
+              client and company engagements.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {apps.map((a, i) => (
+              <motion.div
+                key={a.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: i * 0.06 }}
+              >
+                <Card className="h-full flex flex-col overflow-hidden group">
+                  <a
+                    href={a.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block overflow-hidden border-b bg-black/90"
+                  >
+                    <img
+                      src={appImages[a.image]}
+                      alt={`${a.name} screenshot`}
+                      className="w-full h-44 object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </a>
+                  <CardHeader className="pb-2">
+                    <div className="flex items-start justify-between gap-2">
+                      <CardTitle className="text-lg">{a.name}</CardTitle>
+                      {a.context && (
+                        <Badge variant="secondary" className="shrink-0 text-xs">
+                          {a.context}
+                        </Badge>
+                      )}
+                    </div>
+                  </CardHeader>
+                  <CardContent className="flex-1 flex flex-col gap-4">
+                    <p className="text-muted-foreground text-sm leading-relaxed flex-1">
+                      {a.description}
+                    </p>
+                    <Button size="sm" variant="outline" className="gap-1.5" asChild>
+                      <a href={a.link} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="h-3.5 w-3.5" />
+                        Visit
+                      </a>
+                    </Button>
                   </CardContent>
                 </Card>
               </motion.div>
